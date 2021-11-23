@@ -1,6 +1,7 @@
-#include<stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
-     
+#include <math.h>
+
 void create();
 void display();
 void insert_begin();
@@ -9,7 +10,7 @@ void insert_pos();
 void delete_begin();
 void delete_end();
 void delete_pos();
-void displayPointerValue();
+void displayPattern();
  
 struct node
 {
@@ -25,14 +26,14 @@ int main()
                 printf("\nMENU \n");
                 printf("\n1.Create");
                 printf("\n2.Display");
-                printf("\n3.Insert at the beginning");
-                printf("\n4.Insert at the end");
-                printf("\n5.Insert at specified position");
-                printf("\n6.Delete from beginning");
-                printf("\n7.Delete from the end");
-                printf("\n8.Delete from specified position");                
-                // printf("\n9.Display Using Pointer Value");
-                printf("\n9.Exit");
+                printf("\n3.Display Pattern Using Values");
+                printf("\n4.Insert at the beginning");
+                printf("\n5.Insert at the end");
+                printf("\n6.Insert at specified position");
+                printf("\n7.Delete from beginning");
+                printf("\n8.Delete from the end");
+                printf("\n9.Delete from specified position");                
+                printf("\n10.Exit");
                 printf("\n--------------------------------------\n");
                 printf("\nEnter your choice:\t");
                 scanf("%d",&choice);
@@ -45,30 +46,28 @@ int main()
                         case 2:
                                         display();
                                         break;
-                        case 3: 
+                        case 3:
+                                        displayPattern();
+                                        break;
+                        case 4: 
                                         insert_begin();
                                         break;
-                        case 4:
+                        case 5:
                                         insert_end();
                                         break;
-                        case 5:
+                        case 6:
                                         insert_pos();
                                         break;
-                        case 6:
+                        case 7:
                                         delete_begin();
                                         break;
-                        case 7:
+                        case 8:
                                         delete_end();
                                         break;
-                        case 8:
+                        case 9:
                                         delete_pos();
                                         break;
-                        
-                        // case 9:
-                        //                 displayPointerValue();
-                        //                 break;
-
-                        case 9:
+                        case 10:
                                         exit(0);
                                         break;
                              
@@ -138,9 +137,10 @@ void display()
                 printf("\n--------------------------------------\n");
         }
 }
-void displayPointerValue()
+void displayPattern()
 {
-        char pointer[8];
+        int count=0;
+        int result = 0;
         struct node *ptr;
         if(start==NULL)
         {
@@ -150,9 +150,27 @@ void displayPointerValue()
         }
         else
         {
-                printf("\nEnter Pointer Value:\t");
-                scanf("%s",pointer);
-                printf("\n%d", **(&pointer));
+                ptr=start;                
+                while(ptr!=NULL)
+                {
+                        count++;
+                        ptr=ptr->next;
+                }
+
+                printf("\nCount: %d",count);
+                printf("\nPattern List elements are:\n");
+                ptr=start;
+                while(ptr!=NULL)
+                {
+                        if(count!=0){
+                                result = result + (ptr->info * pow(10, count));
+                        }else if(count==0){
+                                result = result + ptr->info; 
+                        }                 
+                        count--;
+                        ptr=ptr->next ;
+                }
+                printf("\nFinal Result: %d",result/10); 
                 printf("\n--------------------------------------\n");
         }
 }
